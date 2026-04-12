@@ -3,107 +3,104 @@ import gsap from "gsap";
 
 export default function BigTextSlide({ title, subtitle }) {
   const itemsRef = useRef([]);
+  const textRef = useRef(null);
 
   useEffect(() => {
-    // ===== ENTRY =====
+    const tl = gsap.timeline();
+
+    // Decorative elements animation
     gsap.fromTo(
       itemsRef.current,
       {
         opacity: 0,
-        scale: 0.7,
+        scale: 0.5,
+      },
+      {
+        opacity: 0.6,
+        scale: 1,
+        duration: 1.2,
+        ease: "power3.out",
+        stagger: 0.1,
+      }
+    );
+
+    // Floating animation for decorative elements
+    itemsRef.current.forEach((el, i) => {
+      const direction = i % 2 === 0 ? 1 : -1;
+
+      gsap.to(el, {
+        y: `+=${8 + i * 1.5}`,
+        duration: 5 + i,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+      });
+
+      gsap.to(el, {
+        rotation: direction * (8 + i * 2),
+        duration: 7 + i,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+      });
+    });
+
+    // Text entrance animation
+    gsap.fromTo(
+      textRef.current,
+      {
+        opacity: 0,
+        y: 30,
       },
       {
         opacity: 1,
-        scale: 1,
-        x: 0,
         y: 0,
-        duration: 1.6,
-        ease: "power4.out",
-        stagger: 0.15,
-        onComplete: startIdleMotion,
-      },
+        duration: 0.8,
+        ease: "power3.out",
+        delay: 0.2,
+      }
     );
-
-    function startIdleMotion() {
-      itemsRef.current.forEach((el, i) => {
-        const direction = i % 2 === 0 ? 1 : -1;
-
-        // 🌬 FLOAT (very slow)
-        gsap.to(el, {
-          y: `+=${10 + i * 2}`,
-          duration: 4 + i,
-          ease: "sine.inOut",
-          repeat: -1,
-          yoyo: true,
-        });
-
-        //  MICRO ROTATION
-        gsap.to(el, {
-          rotation: direction * (10 + i * 2),
-          duration: 6 + i,
-          ease: "sine.inOut",
-          repeat: -1,
-          yoyo: true,
-        });
-
-        //  BREATH SCALE
-        gsap.to(el, {
-          scale: 1.1,
-          duration: 3 + i * 0.4,
-          ease: "sine.inOut",
-          repeat: -1,
-          yoyo: true,
-        });
-      });
-    }
   }, []);
 
   return (
-    <div  className="relative [&>img]:grayscale flex h-screen w-screen items-center justify-center bg-black overflow-hidden px-6">
-      {/* TOP LEFT */}
-      <img
-        ref={(el) => (itemsRef.current[0] = el)}
-        src="/assets/2.png"
-        className="absolute top-24 md:left-24 left-6 w-24 -rotate-45  md:w-44 opacity-70"
-        style={{ transform: "translate(-180px, -180px)" }}
-        alt=""
-      />
+    <div className="relative flex h-screen w-screen items-center justify-center bg-black overflow-hidden px-6 md:px-12">
+      {/* Decorative background elements */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
+      </div>
 
-      {/* TOP RIGHT */}
-      <img
-        ref={(el) => (itemsRef.current[1] = el)}
-        src="/assets/2.png"
-        className="absolute top-28 right-6 md:right-28 -rotate-45  w-24  md:w-44 opacity-70"
-        style={{ transform: "translate(180px, -180px)" }}
-        alt=""
-      />
+      {/* Decorative images */}
+      {[0, 1, 2, 3].map((i) => (
+        <img
+          key={i}
+          ref={(el) => (itemsRef.current[i] = el)}
+          src="/assets/2.png"
+          className="absolute w-20 md:w-32 lg:w-44 -rotate-45 opacity-40 md:opacity-50 will-change-transform"
+          alt=""
+          loading="lazy"
+          style={{
+            top: i < 2 ? "2rem" : "auto",
+            bottom: i >= 2 ? "2rem" : "auto",
+            left: i % 2 === 0 ? "1.5rem" : "auto",
+            right: i % 2 === 1 ? "1.5rem" : "auto",
+          }}
+        />
+      ))}
 
-      {/* BOTTOM LEFT */}
-      <img
-        ref={(el) => (itemsRef.current[2] = el)}
-        src="/assets/2.png"
-        className="absolute bottom-28 left-6 md:left-28 w-24 -rotate-45  md:w-44 opacity-70"
-        style={{ transform: "translate(-180px, 180px)" }}
-        alt=""
-      />
-
-      {/* BOTTOM RIGHT */}
-      <img
-        ref={(el) => (itemsRef.current[3] = el)}
-        src="/assets/2.png"
-        className="absolute bottom-24 right-6 md:right-24  w-24 -rotate-45  md:w-44 opacity-70"
-        style={{ transform: "translate(180px, 180px)" }}
-        alt=""
-      />
-
-      {/* TEXT */}
-      <div className="relative z-10 max-w-5xl text-center">
-        <h1 style={{ fontFamily: "bulgia" }}  className="text-[clamp(2rem,8vw,7rem)] font-bold leading-none space-y-0.5 tracking-tight text-white">
+      {/* TEXT CONTENT */}
+      <div ref={textRef} className="relative z-10 max-w-5xl text-center">
+        <h2
+          style={{ fontFamily: "stain" }}
+          className="text-4xl md:text-6xl lg:text-8xl font-bold leading-none text-white mb-4 md:mb-6"
+        >
           {title}
-        </h1>
+        </h2>
 
         {subtitle && (
-          <p className="mt-6 text-lg md:text-xl text-white/60">{subtitle}</p>
+          <p className="text-base md:text-lg lg:text-xl text-white/60 leading-relaxed">
+            {subtitle}
+          </p>
         )}
       </div>
     </div>

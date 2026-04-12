@@ -1,8 +1,59 @@
 import Section from "../ui/section";
+import { useLayoutEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
 export default function Projects() {
+  const containerRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.utils.toArray(".project-section").forEach((section) => {
+        gsap.fromTo(
+          section,
+          {
+            opacity: 0,
+            y: 50,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: section,
+              start: "top 80%",
+              once: true,
+            },
+          }
+        );
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <div className="w-screen h-full text-center bg-black flex flex-col gap-8 p-2 py-24  justify-center items-center">
-        <Section
+    <div
+      ref={containerRef}
+      className="w-full min-h-screen bg-black text-white flex flex-col gap-8 p-4 md:p-8 py-24 md:py-32 justify-center items-center"
+      role="region"
+      aria-label="Projects section"
+    >
+      <div className="w-full max-w-7xl">
+        <h2
+          style={{ fontFamily: "stain" }}
+          className="text-4xl md:text-7xl uppercase mb-20 text-center font-bold"
+        >
+          Featured Work
+        </h2>
+      </div>
+
+      <div className="w-full flex flex-col gap-12 max-w-7xl mx-auto">
+        <div className="project-section">
+          <Section
             title="Fullstack Application"
             role="Full Stack Developer"
             year="2025"
@@ -19,7 +70,9 @@ export default function Projects() {
             liveLink="https://minitwitter-psi.vercel.app/"
             githubLink="https://github.com/Ashishkapoor1469/Fullstackapplication"
           />
+        </div>
 
+        <div className="project-section">
           <Section
             title="CODEAXE"
             role="Frontend & Logic Developer"
@@ -35,7 +88,9 @@ export default function Projects() {
             liveLink="https://codeaxe.vercel.app/"
             githubLink="https://github.com/Ashishkapoor1469/CODEAXE"
           />
+        </div>
 
+        <div className="project-section">
           <Section
             title="SkillBoost"
             role="Full Stack Developer"
@@ -52,7 +107,9 @@ export default function Projects() {
             liveLink="https://skill-boost-eight.vercel.app/"
             githubLink="https://github.com/Ashishkapoor1469/SkillBoost"
           />
+        </div>
 
+        <div className="project-section">
           <Section
             title="Batekaro"
             role="Frontend Developer"
@@ -68,6 +125,8 @@ export default function Projects() {
             liveLink="https://chatttkero.vercel.app/"
             githubLink="https://github.com/Ashishkapoor1469/Batekaro"
           />
+        </div>
+      </div>
     </div>
   );
 }

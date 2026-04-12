@@ -9,31 +9,32 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function WorkGrid() {
   const gridRef = useRef(null);
+  const sectionRef = useRef(null);
 
   useLayoutEffect(() => {
-    // const isMobile = window.innerWidth < 768;
-
-    // if (!isMobile) return;
-
     const ctx = gsap.context(() => {
-      gsap.utils.toArray(".work-card").forEach((card) => {
+      // Animate individual cards
+      gsap.utils.toArray(".work-card").forEach((card, index) => {
         gsap.fromTo(
           card,
           {
-            scale: 0.8,
+            scale: 0.7,
             opacity: 0,
+            y: 30,
           },
           {
             scale: 1,
             opacity: 1,
-            ease: "none",
+            y: 0,
+            duration: 0.6,
+            ease: "power3.out",
+            stagger: 0.05,
             scrollTrigger: {
               trigger: card,
               start: "top 85%",
-              end: "top 55%",
-              scrub: true, // 👈 progress-based animation
+              once: true,
             },
-          },
+          }
         );
       });
     }, gridRef);
@@ -43,21 +44,24 @@ export default function WorkGrid() {
 
   return (
     <section
+      ref={sectionRef}
       id="about"
-      className="py-24 border-t project  border-black/5 dark:border-white/5 w-full"
+      className="py-20 md:py-32 border-t border-white/10 dark:border-white/5 w-full bg-black"
+      role="region"
+      aria-label="Work gallery section"
     >
-      <div className=" mx-auto">
-        <div className="w-full p-1 flex sm:flex-row border-b border-neutral-700 flex-col sm:justify-between items-center">
+      <div className="mx-auto max-w-7xl px-6 md:px-12">
+        <div className="w-full flex flex-col md:flex-row border-b border-white/10 items-center justify-between pb-12 gap-8 mb-16">
           <TextAn>
             <h2
               style={{ fontFamily: "stain" }}
-              className="font-display text-4xl min-[264px]:text-6xl md:text-8xl uppercase text-center pb-4"
+              className="font-display text-5xl md:text-7xl lg:text-8xl uppercase text-white font-bold leading-tight"
             >
-              CURATED <br /> WORK
+              Curated<br />Work
             </h2>
             <span
               style={{ fontFamily: "Poppins" }}
-              className="font-display text-4xl min-[264px]:text-6xl md:text-8xl"
+              className="font-display text-4xl md:text-6xl lg:text-7xl text-white/40 font-light"
             >
               12-25
             </span>
@@ -66,7 +70,7 @@ export default function WorkGrid() {
 
         <div
           ref={gridRef}
-          className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-10 gap-2 p-2"
+          className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2 md:gap-3"
         >
           {works.map((work) => (
             <div key={work.id} className="work-card">

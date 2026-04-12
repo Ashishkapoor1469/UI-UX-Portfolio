@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
+
 export default function TextAn({
   children,
   className,
@@ -48,14 +49,20 @@ export default function TextAn({
         }
         lines.current.push(...split.lines);
       });
-      gsap.set(lines.current, { y: "100%" });
+
+      gsap.set(lines.current, { y: "100%", opacity: 0 });
+      
       const animationProps = {
         y: "0%",
-        duration: 1,
-        ease: "power4.out",
-        stagger: 0.2,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.08,
         delay: delay,
+        force3D: true,
+        willChange: "transform, opacity",
       };
+
       if (animateOnScroll) {
         gsap.to(lines.current, {
           ...animationProps,
@@ -80,7 +87,7 @@ export default function TextAn({
     {
       scope: containerRef,
       dependencies: [animateOnScroll, delay],
-    },
+    }
   );
 
   if (React.Children.count(children) === 1) {
@@ -92,7 +99,7 @@ export default function TextAn({
   return (
     <div
       ref={containerRef}
-      className={`flex flex-col ${className}  lines items-center  w-full sm:flex-row justify-between pb-15`}
+      className={`flex flex-col ${className} lines items-center w-full sm:flex-row justify-between pb-4 sm:pb-0`}
       data-copy-wapper="true"
     >
       {children}
