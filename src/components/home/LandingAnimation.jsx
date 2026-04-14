@@ -1,19 +1,23 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 
 export default function Landing() {
   const containerRef = useRef(null);
   const lettersRef = useRef([]);
   const barRef = useRef(null);
+  const [done, setDone] = useState(false);
 
   const text = "ASHISH KAPOOR";
 
   useEffect(() => {
+    if (done) return;
+    if (!containerRef.current) return;
     const letters = lettersRef.current;
     const letterDuration = 0.08;
     const totalDuration = letters.length * letterDuration;
 
     // Initial states with better timing
+    gsap.set(containerRef.current, { y: 0, opacity: 1, display: "flex" });
     gsap.set(letters, { opacity: 0.1, scale: 0.8 });
     gsap.set(barRef.current, { scaleX: 0, transformOrigin: "left" });
 
@@ -52,14 +56,22 @@ export default function Landing() {
         duration: 1,
         ease: "power4.inOut",
         delay: 0.4,
+        onComplete: () => {
+          // Unmount after completion so it can never cover the app on mobile.
+          setDone(true);
+        },
       }
     );
-  }, []);
+
+    return () => tl.kill();
+  }, [done]);
+
+  if (done) return null;
 
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-9999 flex items-center justify-center bg-black will-change-transform"
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black will-change-transform"
     >
       <div className="w-full px-6 text-center">
         {/* Text */}

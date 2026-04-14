@@ -13,7 +13,17 @@ export default function HrSection() {
   const arrowsRef = useRef(null);
 
   const sectionsCount = 4;
-  const [isCoarse, setIsCoarse] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      return Boolean(
+        window.matchMedia("(pointer: coarse)").matches ||
+          window.matchMedia("(max-width: 767px)").matches,
+      );
+    } catch (_) {
+      return false;
+    }
+  });
 
   const slides = useMemo(
     () => [
@@ -38,16 +48,29 @@ export default function HrSection() {
   );
 
   useEffect(() => {
-    const mq = window.matchMedia("(pointer: coarse)");
-    const update = () => setIsCoarse(Boolean(mq.matches));
+    const mqCoarse = window.matchMedia("(pointer: coarse)");
+    const mqSmall = window.matchMedia("(max-width: 767px)");
+
+    const update = () => {
+      setIsMobile(Boolean(mqCoarse.matches || mqSmall.matches));
+    };
+
     update();
-    mq.addEventListener?.("change", update);
-    return () => mq.removeEventListener?.("change", update);
+    mqCoarse.addEventListener?.("change", update);
+    mqSmall.addEventListener?.("change", update);
+    window.addEventListener("resize", update, { passive: true });
+
+    return () => {
+      mqCoarse.removeEventListener?.("change", update);
+      mqSmall.removeEventListener?.("change", update);
+      window.removeEventListener("resize", update);
+    };
   }, []);
 
   useEffect(() => {
-    // Disable pinned horizontal scroll on touch devices (better UX + avoids scroll-jank)
-    if (isCoarse) return;
+    // Disable pinned horizontal scroll on mobile/small screens (DevTools emulation included).
+    if (isMobile) return undefined;
+    if (!sectionRef.current || !triggerRef.current) return undefined;
 
     const tween = gsap.fromTo(
       sectionRef.current,
@@ -61,6 +84,8 @@ export default function HrSection() {
           end: "+=2000",
           scrub: true,
           pin: true,
+          pinSpacing: true,
+          invalidateOnRefresh: true,
           snap: {
             snapTo: 1 / (sectionsCount - 1),
             duration: 0.6,
@@ -74,11 +99,27 @@ export default function HrSection() {
           onEnterBack: () => gsap.to(arrowsRef.current, { autoAlpha: 1 }),
           onLeaveBack: () => gsap.to(arrowsRef.current, { autoAlpha: 0 }),
         },
-      }
+      },
     );
 
-    return () => tween.kill();
-  }, []);
+    const st = tween.scrollTrigger;
+
+    return () => {
+      // Critical: revert pinned DOM changes before React unmounts.
+      try {
+        st?.kill(true);
+      } catch (_) {
+        /* noop */
+      }
+      try {
+        tween.kill();
+      } catch (_) {
+        /* noop */
+      }
+      scrollTriggerRef.current = null;
+      if (sectionRef.current) gsap.set(sectionRef.current, { clearProps: "transform" });
+    };
+  }, [isMobile, sectionsCount]);
 
   const goToSection = (direction) => {
     const st = scrollTriggerRef.current;
@@ -124,7 +165,7 @@ export default function HrSection() {
       </div>
 
       {/* Desktop: pinned horizontal story */}
-      {!isCoarse && (
+      {!isMobile && (
         <div ref={triggerRef}>
           <div ref={sectionRef} className="flex h-screen w-[400vw]">
             {slides.map((s) => (
@@ -139,7 +180,7 @@ export default function HrSection() {
       )}
 
       {/* Mobile: stacked sections (prevents 400vw overflow) */}
-      {isCoarse && (
+      {isMobile && (
         <div className="py-24 md:py-32 border-t border-white/10">
           <div className="mx-auto max-w-7xl px-6 md:px-12">
             <p className="text-[11px] md:text-xs uppercase tracking-[0.28em] text-white/60 font-mono">
