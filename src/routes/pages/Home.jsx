@@ -1,11 +1,14 @@
 import ReactLenis from "lenis/react";
 import {
+  CTA,
   Footer,
   Header,
   Hero,
   HrSection,
+  Journey,
   Landing,
   Projects,
+  Proof,
   WorkGrid,
 } from "../../components/home";
 
@@ -22,6 +25,9 @@ export default function Home() {
         <WorkGrid />
         <HrSection />
         <Projects />
+        <Journey />
+        <Proof />
+        <CTA />
         <Footer />
       </main>
     </ReactLenis>

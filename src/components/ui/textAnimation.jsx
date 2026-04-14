@@ -32,12 +32,23 @@ export default function TextAn({
       }
 
       element.forEach((el) => {
+        // Prevent SplitText stacking (dev StrictMode / fast refresh)
+        if (el?._rbSplitText) {
+          try {
+            el._rbSplitText.revert();
+          } catch (_) {
+            /* noop */
+          }
+          el._rbSplitText = null;
+        }
+
         elementRef.current.push(el);
         const split = SplitText.create(el, {
           type: "lines",
           mask: "lines",
           linesClass: "line++",
         });
+        el._rbSplitText = split;
         splitRef.current.push(split);
         const compuredStyle = window.getComputedStyle(el);
         const textIndent = compuredStyle.textIndent;
@@ -71,15 +82,46 @@ export default function TextAn({
             start: "top 75%",
             once: true,
           },
+          onComplete: () => {
+            // Avoid leaving fractional inline opacity after reloads
+            gsap.set(lines.current, { clearProps: "opacity,transform" });
+          },
         });
       } else {
-        gsap.to(lines.current, animationProps);
+        gsap.to(lines.current, {
+          ...animationProps,
+          onComplete: () => {
+            gsap.set(lines.current, { clearProps: "opacity,transform" });
+          },
+        });
       }
 
       return () => {
+        gsap.killTweensOf(lines.current);
+        ScrollTrigger.getAll().forEach((st) => {
+          if (st?.trigger === containerRef.current) st.kill();
+        });
+
         splitRef.current.forEach((split) => {
           if (split) {
             split.revert();
+          }
+        });
+
+        elementRef.current.forEach((el) => {
+          if (el?._rbSplitText) {
+            try {
+              el._rbSplitText.revert();
+            } catch (_) {
+              /* noop */
+            }
+            el._rbSplitText = null;
+          }
+          try {
+            el.style.opacity = "";
+            el.style.transform = "";
+          } catch (_) {
+            /* noop */
           }
         });
       };

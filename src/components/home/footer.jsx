@@ -28,8 +28,8 @@ export default function Footer() {
 
   const socialLinks = [
     { icon: Github, label: "GitHub", url: "https://github.com/Ashishkapoor1469" },
-    { icon: Linkedin, label: "LinkedIn", url: "https://linkedin.com/in/ashish-kapoor" },
-    { icon: Mail, label: "Email", url: "mailto:ashish@example.com" },
+    { icon: Linkedin, label: "LinkedIn", url: "https://www.linkedin.com/in/ashishkapoor4169/" },
+    { icon: Mail, label: "Email", url: "mailto:kapoorashish714@gmail.com" },
   ];
 
   return (
@@ -43,9 +43,10 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-20 mb-12 md:mb-16">
           {/* Brand */}
           <div className="footer-item">
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">Ashish Kumar</h3>
+            <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">Ashish Kapoor</h3>
             <p className="text-sm md:text-base text-white/60 leading-relaxed">
-              Full-Stack Developer creating beautiful, functional web experiences. Specialized in React, Next.js, and modern JavaScript.
+              Creative developer building premium UI with motion that earns its
+              place. Clean architecture underneath, crisp interaction on top.
             </p>
           </div>
 
@@ -56,11 +57,14 @@ export default function Footer() {
               <a href="#home" className="text-white/60 hover:text-white transition-colors" aria-label="Go to Home">
                 Home
               </a>
-              <a href="#about" className="text-white/60 hover:text-white transition-colors" aria-label="Go to About">
-                About
+              <a href="#work" className="text-white/60 hover:text-white transition-colors" aria-label="Go to Work">
+                Work
               </a>
-              <a href="#projects" className="text-white/60 hover:text-white transition-colors" aria-label="Go to Projects">
-                Projects
+              <a href="#journey" className="text-white/60 hover:text-white transition-colors" aria-label="Go to Journey">
+                Journey
+              </a>
+              <a href="#contact" className="text-white/60 hover:text-white transition-colors" aria-label="Go to Contact">
+                Contact
               </a>
             </nav>
           </div>

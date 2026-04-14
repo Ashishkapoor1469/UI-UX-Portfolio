@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
@@ -13,8 +13,42 @@ export default function HrSection() {
   const arrowsRef = useRef(null);
 
   const sectionsCount = 4;
+  const [isCoarse, setIsCoarse] = useState(false);
+
+  const slides = useMemo(
+    () => [
+      {
+        title: "PRODUCT FEEL",
+        subtitle: "Not just pages—interfaces with clarity, rhythm, and intent.",
+      },
+      {
+        title: "SYSTEMS MINDSET",
+        subtitle: "Design systems + clean APIs so the product can scale.",
+      },
+      {
+        title: "MOTION WITH PURPOSE",
+        subtitle: "Feedback, flow, and micro-interactions—never decoration.",
+      },
+      {
+        title: "LET’S SHIP",
+        subtitle: "Fast, premium builds—optimized for mobile and real users.",
+      },
+    ],
+    [],
+  );
 
   useEffect(() => {
+    const mq = window.matchMedia("(pointer: coarse)");
+    const update = () => setIsCoarse(Boolean(mq.matches));
+    update();
+    mq.addEventListener?.("change", update);
+    return () => mq.removeEventListener?.("change", update);
+  }, []);
+
+  useEffect(() => {
+    // Disable pinned horizontal scroll on touch devices (better UX + avoids scroll-jank)
+    if (isCoarse) return;
+
     const tween = gsap.fromTo(
       sectionRef.current,
       { x: 0 },
@@ -67,13 +101,13 @@ export default function HrSection() {
 
   return (
     <section
-      id="projects"
+      id="principles"
       className="relative overflow-hidden bg-black text-white"
     >
       {/* ARROWS */}
       <div
         ref={arrowsRef}
-        className="fixed bottom-6 left-1/2 z-50 flex -translate-x-1/2 gap-4 opacity-0"
+        className="fixed bottom-6 left-1/2 z-50 hidden md:flex -translate-x-1/2 gap-4 opacity-0"
       >
         <button
           onClick={() => goToSection("prev")}
@@ -89,33 +123,55 @@ export default function HrSection() {
         </button>
       </div>
 
-      {/* HORIZONTAL SCROLL */}
-      <div ref={triggerRef}>
-        <div
-          ref={sectionRef}
-          className="flex h-screen w-[400vw]"
-        >
-          <BigTextSlide
-            title="I BUILD EXPERIENCES"
-            subtitle="Not just websites — digital products with purpose."
-          />
-
-          <BigTextSlide
-            title="FULL STACK THINKING"
-            subtitle="Frontend polish meets backend architecture."
-          />
-
-          <BigTextSlide
-            title="DESIGN × CODE"
-            subtitle="Where performance and aesthetics coexist."
-          />
-
-          <BigTextSlide
-            title="LET’S CREATE IMPACT"
-            subtitle="Projects that people actually love to use."
-          />
+      {/* Desktop: pinned horizontal story */}
+      {!isCoarse && (
+        <div ref={triggerRef}>
+          <div ref={sectionRef} className="flex h-screen w-[400vw]">
+            {slides.map((s) => (
+              <BigTextSlide
+                key={s.title}
+                title={s.title}
+                subtitle={s.subtitle}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* Mobile: stacked sections (prevents 400vw overflow) */}
+      {isCoarse && (
+        <div className="py-24 md:py-32 border-t border-white/10">
+          <div className="mx-auto max-w-7xl px-6 md:px-12">
+            <p className="text-[11px] md:text-xs uppercase tracking-[0.28em] text-white/60 font-mono">
+              Principles
+            </p>
+            <h2
+              style={{ fontFamily: "stain" }}
+              className="mt-4 text-4xl md:text-6xl uppercase font-bold leading-[0.95]"
+            >
+              How I ship work
+            </h2>
+            <div className="mt-10 grid grid-cols-1 gap-4">
+              {slides.map((s) => (
+                <div
+                  key={s.title}
+                  className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/6 via-white/3 to-transparent p-6"
+                >
+                  <p
+                    style={{ fontFamily: "stain" }}
+                    className="text-2xl uppercase font-bold leading-[0.95]"
+                  >
+                    {s.title}
+                  </p>
+                  <p className="mt-3 text-sm text-white/65 leading-relaxed">
+                    {s.subtitle}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

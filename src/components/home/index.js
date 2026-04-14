@@ -5,3 +5,6 @@ export {default as WorkGrid} from './workgrid';
 export {default as HrSection} from './horizontalscrollsection';
 export {default as Landing} from './LandingAnimation';
 export {default as Projects} from './projects';
+export {default as Journey} from './journey';
+export {default as Proof} from './proof';
+export {default as CTA} from './cta';
