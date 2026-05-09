@@ -1,5 +1,29 @@
 export const selectedWork = [
   {
+    id: "nestgo",
+    eyebrow: "Open Source • Go Framework",
+    title: "NestGo",
+    role: "Creator / architect",
+    year: "2025–2026",
+    image: "/assets/nestgo.webp",
+    problem:
+      "Go's ecosystem lacked a structured, opinionated framework for building enterprise-grade backends. Most teams either reinvent architecture from scratch or settle for bare routers with no conventions.",
+    approach:
+      "Designed a modular framework inspired by NestJS — bringing dependency injection, code generation, and a powerful CLI to Go without sacrificing performance or type safety.",
+    decisions: [
+      "Compile-time DI with zero reflection — full type safety, no runtime magic",
+      "Modular architecture where each feature is an isolated, self-contained unit",
+      "CLI-first experience: scaffold, generate, migrate, and inspect from the terminal",
+      "One command generates a complete CRUD resource — controller, service, DTOs, entity, migration, and tests",
+      "Built-in diagnostics: route explorer, module graph, architecture linter, and project health checks",
+    ],
+    outcome:
+      "A production-ready Go framework that gives teams structure, tooling, and conventions out of the box — without sacrificing the performance Go is known for.",
+    techStack: ["Go", "Chi Router", "PostgreSQL", "JWT", "CLI Tooling"],
+    liveLink: null,
+    githubLink: "https://github.com/Ashishkapoor1469/Nestgo",
+  },
+  {
     id: "forge-cli",
     eyebrow: "CLI • AI systems",
     title: "FORGE",
@@ -7,12 +31,12 @@ export const selectedWork = [
     year: "2025–2026",
     image: "/assets/1.webp",
     problem:
-      "Most “AI coding tools” are either too rigid or too magical. I wanted a terminal-native system that decomposes real requests into executable work—while staying inspectable.",
+      "Most "AI coding tools" are either too rigid or too magical. I wanted a terminal-native system that decomposes real requests into executable work—while staying inspectable.",
     approach:
       "Built an agent pipeline (plan → schedule → execute), optimized for fast iteration and real file generation in a local workspace with streaming output.",
     decisions: [
       "Multi-agent workflow (Planner → Task Manager → Worker)",
-      "Parallel “execution waves” for speed without chaos",
+      "Parallel "execution waves" for speed without chaos",
       "Dual provider support (local Ollama + OpenRouter cloud)",
       "Persistent memory across sessions for continuity",
     ],
@@ -32,7 +56,7 @@ export const selectedWork = [
     problem:
       "Build a scalable social platform with a fast feed, solid auth, and product-grade features—without it turning into a spaghetti codebase.",
     approach:
-      "Designed clear domain flows (auth, posting, engagement), prioritized predictable APIs, and optimized the UI for “instant” feedback with infinite scrolling.",
+      "Designed clear domain flows (auth, posting, engagement), prioritized predictable APIs, and optimized the UI for "instant" feedback with infinite scrolling.",
     decisions: [
       "JWT auth + email verification",
       "Infinite scroll feed tuned for performance",
@@ -67,27 +91,4 @@ export const selectedWork = [
     liveLink: null,
     githubLink: "https://github.com/Ashishkapoor1469/multi-platform-ai-assistant",
   },
-  {
-    id: "codeaxe",
-    eyebrow: "Learning • Frontend",
-    title: "CODEAXE",
-    role: "Frontend & logic",
-    year: "2024",
-    image: "/assets/code.png",
-    problem:
-      "Turn practice into progress—help users focus on problem solving without UI friction.",
-    approach:
-      "Built a crisp content structure, kept interactions predictable, and tuned layout + typography so the experience stays readable at speed.",
-    decisions: [
-      "Information hierarchy that keeps context visible while solving",
-      "Motion used as feedback (not decoration)",
-      "Reusable components for questions, filters, and content blocks",
-    ],
-    outcome:
-      "A fast, structured learning interface that feels intentional—like a product, not a project page.",
-    techStack: ["React", "JavaScript", "Tailwind CSS"],
-    liveLink: "https://codeaxe.vercel.app/",
-    githubLink: "https://github.com/Ashishkapoor1469/CODEAXE",
-  },
 ];
-
