@@ -31,12 +31,12 @@ export const selectedWork = [
     year: "2025–2026",
     image: "/assets/1.webp",
     problem:
-      "Most "AI coding tools" are either too rigid or too magical. I wanted a terminal-native system that decomposes real requests into executable work—while staying inspectable.",
+      "Most 'AI coding tools' are either too rigid or too magical. I wanted a terminal-native system that decomposes real requests into executable work—while staying inspectable.",
     approach:
       "Built an agent pipeline (plan → schedule → execute), optimized for fast iteration and real file generation in a local workspace with streaming output.",
     decisions: [
       "Multi-agent workflow (Planner → Task Manager → Worker)",
-      "Parallel "execution waves" for speed without chaos",
+      "Parallel 'execution waves' for speed without chaos",
       "Dual provider support (local Ollama + OpenRouter cloud)",
       "Persistent memory across sessions for continuity",
     ],
@@ -48,15 +48,15 @@ export const selectedWork = [
   },
   {
     id: "zitter",
-    eyebrow: "Product • Full‑stack",
+    eyebrow: "Product • Full-stack",
     title: "Zitter",
-    role: "Full‑stack developer",
+    role: "Full-stack developer",
     year: "2025",
     image: "/assets/z.svg",
     problem:
       "Build a scalable social platform with a fast feed, solid auth, and product-grade features—without it turning into a spaghetti codebase.",
     approach:
-      "Designed clear domain flows (auth, posting, engagement), prioritized predictable APIs, and optimized the UI for "instant" feedback with infinite scrolling.",
+      "Designed clear domain flows (auth, posting, engagement), prioritized predictable APIs, and optimized the UI for 'instant' feedback with infinite scrolling.",
     decisions: [
       "JWT auth + email verification",
       "Infinite scroll feed tuned for performance",
@@ -72,7 +72,7 @@ export const selectedWork = [
   {
     id: "mp-ai-assistant",
     eyebrow: "AI • Multi-provider",
-    title: "Multi‑Platform AI Assistant",
+    title: "Multi-Platform AI Assistant",
     role: "Product engineer",
     year: "2025",
     image: "/assets/3.webp",
