@@ -89,12 +89,10 @@ export default function Proof() {
             Minimal testimonial
           </p>
           <p className="mt-4 text-base md:text-lg text-white/80 leading-relaxed">
-            “Ashish has a rare mix of design taste and engineering discipline—he
+            “I have a rare mix of design taste and engineering discipline—he
             ships polished interfaces that feel fast and intentional.”
           </p>
-          <p className="mt-4 text-sm text-white/50 font-mono">
-            — Replace with a real client/mentor quote when available
-          </p>
+          
         </div>
       </div>
     </section>
