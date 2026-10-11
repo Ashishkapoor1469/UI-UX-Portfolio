@@ -8,10 +8,10 @@ import BigTextSlide from "../ui/BigTextSlide";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-/* --- PURE BLACK & WHITE THEMED SCOUT ROCKET (Dead Straight Upright at 0deg) --- */
+/* --- PURE BLACK & WHITE THEMED SCOUT ROCKET WITH TRAILING SMOKE CLOUDS --- */
 function BlackWhiteRocket({ isThrusting = false, className = "" }) {
   return (
-    <svg viewBox="0 0 120 120" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 120 170" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         {/* Crisp monochrome body gradient */}
         <linearGradient id="bwBodyGrad" x1="45" y1="20" x2="75" y2="90" gradientUnits="userSpaceOnUse">
@@ -32,9 +32,78 @@ function BlackWhiteRocket({ isThrusting = false, className = "" }) {
           <feGaussianBlur stdDeviation="3.5" result="blur" />
           <feComposite in="SourceGraphic" in2="blur" operator="over" />
         </filter>
+
+        <style>{`
+          @keyframes smokeBillow1 {
+            0% { transform: translateY(0px) scale(0.65); opacity: 0.2; }
+            45% { transform: translateY(8px) scale(1.05); opacity: 0.95; }
+            100% { transform: translateY(18px) scale(1.28); opacity: 0; }
+          }
+          @keyframes smokeBillow2 {
+            0% { transform: translateY(0px) scale(0.6) rotate(-6deg); opacity: 0.15; }
+            50% { transform: translateY(11px) scale(1.1) rotate(6deg); opacity: 0.9; }
+            100% { transform: translateY(24px) scale(1.35) rotate(12deg); opacity: 0; }
+          }
+          @keyframes smokeBillow3 {
+            0% { transform: translateY(0px) scale(0.6) rotate(6deg); opacity: 0.15; }
+            50% { transform: translateY(13px) scale(1.18) rotate(-6deg); opacity: 0.85; }
+            100% { transform: translateY(28px) scale(1.42) rotate(-12deg); opacity: 0; }
+          }
+          .smoke-cloud-1 {
+            animation: smokeBillow1 0.75s infinite cubic-bezier(0.25, 1, 0.5, 1);
+            transform-origin: 58px 115px;
+          }
+          .smoke-cloud-2 {
+            animation: smokeBillow2 0.9s infinite cubic-bezier(0.25, 1, 0.5, 1) 0.22s;
+            transform-origin: 66px 128px;
+          }
+          .smoke-cloud-3 {
+            animation: smokeBillow3 1.05s infinite cubic-bezier(0.25, 1, 0.5, 1) 0.45s;
+            transform-origin: 52px 142px;
+          }
+        `}</style>
       </defs>
 
-      <g transform="translate(0, -6)">
+      <g transform="translate(0, -4)">
+        {/* --- 3 BILLOWING TRAILING SMOKE CLOUDS (Released behind moving rocket) --- */}
+        {isThrusting && (
+          <g className="smoke-trail">
+            {/* Smoke Cloud 1 (Closest to thruster, energetic puff) */}
+            <g className="smoke-cloud-1">
+              <path
+                d="M 54 112 C 48 108 44 114 47 119 C 42 123 46 130 52 128 C 56 133 64 132 66 126 C 70 122 66 114 61 113 C 59 109 55 109 54 112 Z"
+                fill="#18181B"
+                stroke="#FFFFFF"
+                strokeWidth="1.6"
+              />
+              <circle cx="56" cy="118" r="1.5" fill="#FFFFFF" opacity="0.8" />
+            </g>
+
+            {/* Smoke Cloud 2 (Mid-distance, billowing out to the right) */}
+            <g className="smoke-cloud-2">
+              <path
+                d="M 60 124 C 54 120 49 127 52 133 C 47 138 53 146 60 144 C 65 149 74 148 77 141 C 81 136 78 128 71 126 C 68 122 63 121 60 124 Z"
+                fill="#0F0F12"
+                stroke="#FFFFFF"
+                strokeWidth="1.6"
+              />
+              <circle cx="64" cy="132" r="2" fill="#FFFFFF" opacity="0.75" />
+            </g>
+
+            {/* Smoke Cloud 3 (Furthest, expanding soft cloud drifting behind) */}
+            <g className="smoke-cloud-3">
+              <path
+                d="M 48 138 C 40 134 35 142 38 149 C 32 155 40 164 48 161 C 55 168 67 166 70 158 C 75 152 71 142 63 140 C 60 135 52 135 48 138 Z"
+                fill="#09090B"
+                stroke="#FFFFFF"
+                strokeWidth="1.6"
+                strokeDasharray="4 2"
+              />
+              <circle cx="52" cy="148" r="2.2" fill="#FFFFFF" opacity="0.65" />
+            </g>
+          </g>
+        )}
+
         {/* Thruster exhaust flame pointing straight downwards */}
         <path
           d="M 54 84 Q 48 104 52 118 Q 60 106 60 92 Q 60 106 68 118 Q 72 104 66 84 Z"
@@ -470,7 +539,7 @@ export default function HrSection() {
           {/* THE SINGLE TRAVELING BLACK & WHITE SCOUT ROCKET */}
           <div
             ref={rocketRef}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none will-change-transform filter drop-shadow-[0_0_20px_rgba(255,255,255,0.25)] w-20 sm:w-24 md:w-26 h-20 sm:h-24 md:h-26"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none will-change-transform filter drop-shadow-[0_0_20px_rgba(255,255,255,0.25)] w-20 sm:w-24 md:w-26 h-28 sm:h-32 md:h-36"
           >
             <BlackWhiteRocket isThrusting={isThrusting} className="w-full h-full" />
           </div>
