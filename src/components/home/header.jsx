@@ -1,6 +1,7 @@
 import gsap from "gsap";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { Github, Linkedin, Instagram } from "lucide-react";
 gsap.registerPlugin(ScrollToPlugin);
 
 const navItems = [
@@ -112,6 +113,38 @@ export default function Header() {
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white/80 group-hover:w-full transition-all duration-300" />
           </button>
         ))}
+        <div className="pt-2 flex items-center gap-3 text-white/50">
+          <a
+            href="https://github.com/Ashishkapoor1469"
+            target="_blank"
+            rel="me noopener noreferrer"
+            aria-label="Ashish Kapoor on GitHub"
+            title="Ashish Kapoor on GitHub"
+            className="hover:text-white transition-colors"
+          >
+            <Github size={14} />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/ashishkapoor-dev"
+            target="_blank"
+            rel="me noopener noreferrer"
+            aria-label="Ashish Kapoor on LinkedIn"
+            title="Ashish Kapoor on LinkedIn"
+            className="hover:text-white transition-colors"
+          >
+            <Linkedin size={14} />
+          </a>
+          <a
+            href="https://www.instagram.com/ashish_kapoor_1"
+            target="_blank"
+            rel="me noopener noreferrer"
+            aria-label="Ashish Kapoor on Instagram"
+            title="Ashish Kapoor on Instagram"
+            className="hover:text-white transition-colors"
+          >
+            <Instagram size={14} />
+          </a>
+        </div>
       </nav>
 
       {/* Mobile menu button */}
@@ -143,6 +176,35 @@ export default function Header() {
               {item.name}
             </button>
           ))}
+          <div className="mt-2 pt-2 border-t border-white/10 flex items-center justify-around px-2 py-1 text-white/60">
+            <a
+              href="https://github.com/Ashishkapoor1469"
+              target="_blank"
+              rel="me noopener noreferrer"
+              aria-label="Ashish Kapoor on GitHub"
+              className="p-1 hover:text-white transition-colors"
+            >
+              <Github size={15} />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/ashishkapoor-dev"
+              target="_blank"
+              rel="me noopener noreferrer"
+              aria-label="Ashish Kapoor on LinkedIn"
+              className="p-1 hover:text-white transition-colors"
+            >
+              <Linkedin size={15} />
+            </a>
+            <a
+              href="https://www.instagram.com/ashish_kapoor_1"
+              target="_blank"
+              rel="me noopener noreferrer"
+              aria-label="Ashish Kapoor on Instagram"
+              className="p-1 hover:text-white transition-colors"
+            >
+              <Instagram size={15} />
+            </a>
+          </div>
         </div>
       </div>
     </header>

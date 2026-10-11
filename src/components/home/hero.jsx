@@ -76,23 +76,29 @@ export default function Hero() {
         <div className="absolute top-[38%] sm:top-1/2 md:top-2/3 -translate-y-1/2 w-full px-6 md:px-12 pointer-events-none">
           <h1
             ref={titleRef}
-            style={{ fontFamily: "stain" }}
-            className="hero-title text-[12vw] sm:text-[10vw] md:text-[9vw] uppercase text-white overlap-text select-none leading-none"
+            className="hero-title text-white overlap-text select-none leading-none"
           >
-            <p>Ashish</p>
-            <p>Kapoor</p>
+            <span
+              style={{ fontFamily: "stain" }}
+              className="block text-[12vw] sm:text-[10vw] md:text-[9vw] uppercase leading-none"
+            >
+              <span className="block">Ashish</span>
+              <span className="block">Kapoor</span>
+            </span>
+            <span className="block text-xs sm:text-sm md:text-base font-mono uppercase tracking-[0.3em] text-white/70 mt-3 sm:mt-4 font-normal">
+              Full-Stack Developer
+            </span>
           </h1>
         </div>
 
         {/* Info Card */}
         <div className="flex lg:flex-row justify-end items-end flex-col-reverse gap-8 text-white mb-10 sm:mb-12">
           <div className="lg:block text-right max-w-sm">
-            <p className="text-[10px] uppercase tracking-[0.28em] text-white text-center sm:text-end mb-4 text-white font-mono">
-              Creative developer • UI / Motion • Full‑stack mindset
+            <p className="text-[10px] uppercase tracking-[0.28em] text-white text-center sm:text-end mb-4 font-mono">
+              Full-Stack Developer • Chamba, India
             </p>
             <p className="text-xs md:text-sm text-white font-light text-center sm:text-end leading-relaxed">
-              I design and build digital experiences that feel alive—clean
-              architecture underneath, premium interaction on top.
+              Ashish Kapoor is a Full-Stack Developer and BCA student based in Chamba, Himachal Pradesh, crafting modern digital experiences with Next.js, React, Node.js, and Go.
             </p>
             <div className="mt-6 flex items-center justify-center sm:justify-end gap-3">
               <a

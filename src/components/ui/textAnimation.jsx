@@ -25,7 +25,7 @@ export default function TextAn({
       if (!firstLine?.parentNode) return;
       try {
         split.revert();
-      } catch (_) {
+      } catch {
         /* noop */
       }
     };
@@ -93,22 +93,16 @@ export default function TextAn({
       // In dev StrictMode/HMR, React may remove nodes before revert() runs -> removeChild error.
       try {
         ctx.revert();
-      } catch (_) {
+      } catch {
         /* noop */
       }
     };
   }, [animateOnScroll, delay]);
 
-  if (React.Children.count(children) === 1) {
-    return React.cloneElement(children, {
-      ref: containerRef,
-    });
-  }
-
   return (
     <div
       ref={containerRef}
-      className={`flex flex-col ${className} lines items-center w-full sm:flex-row justify-between pb-4 sm:pb-0`}
+      className={`flex flex-col ${className || ""} lines items-center w-full sm:flex-row justify-between pb-4 sm:pb-0`}
       data-copy-wapper="true"
     >
       {children}

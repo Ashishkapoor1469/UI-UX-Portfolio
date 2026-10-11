@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Instagram, Mail } from "lucide-react";
 import gsap from "gsap";
 import { useLayoutEffect, useRef } from "react";
 
@@ -27,9 +27,34 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { icon: Github, label: "GitHub", url: "https://github.com/Ashishkapoor1469" },
-    { icon: Linkedin, label: "LinkedIn", url: "https://www.linkedin.com/in/ashishkapoor4169/" },
-    { icon: Mail, label: "Email", url: "mailto:kapoorashish714@gmail.com" },
+    {
+      icon: Github,
+      label: "GitHub",
+      title: "Ashish Kapoor on GitHub",
+      url: "https://github.com/Ashishkapoor1469",
+      rel: "me noopener noreferrer",
+    },
+    {
+      icon: Linkedin,
+      label: "LinkedIn",
+      title: "Ashish Kapoor on LinkedIn",
+      url: "https://www.linkedin.com/in/ashishkapoor-dev",
+      rel: "me noopener noreferrer",
+    },
+    {
+      icon: Instagram,
+      label: "Instagram",
+      title: "Ashish Kapoor on Instagram",
+      url: "https://www.instagram.com/ashish_kapoor_1",
+      rel: "me noopener noreferrer",
+    },
+    {
+      icon: Mail,
+      label: "Email",
+      title: "Email Ashish Kapoor",
+      url: "mailto:kapoorashish714@gmail.com",
+      rel: "noopener noreferrer",
+    },
   ];
 
   return (
@@ -79,9 +104,10 @@ export default function Footer() {
                   <a
                     key={link.label}
                     href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Visit ${link.label}`}
+                    target={link.url.startsWith("mailto:") ? undefined : "_blank"}
+                    rel={link.rel}
+                    aria-label={link.title}
+                    title={link.title}
                     className="p-2.5 rounded-lg border border-white/20 text-white/60 hover:text-white hover:border-white/40 hover:bg-white/5 transition-all duration-300"
                   >
                     <Icon size={18} />

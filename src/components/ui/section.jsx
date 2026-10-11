@@ -1,11 +1,12 @@
 import { Github, ExternalLink } from "lucide-react";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 
 export default function Section({
   id,
   eyebrow,
   title,
+  oneLiner,
   image,
   techStack = [],
   role,
@@ -19,6 +20,7 @@ export default function Section({
 }) {
   const cardRef = useRef(null);
   const imageRef = useRef(null);
+  const [hasError, setHasError] = useState(false);
   const initial = (title || "").trim().slice(0, 1).toUpperCase();
 
   useEffect(() => {
@@ -72,6 +74,12 @@ export default function Section({
           >
             {title}
           </h2>
+
+          {oneLiner && (
+            <p className="text-base md:text-lg text-white/90 font-medium leading-snug">
+              {oneLiner}
+            </p>
+          )}
 
           <div className="grid gap-5 md:gap-6 pt-1">
             {problem && (
@@ -172,25 +180,31 @@ export default function Section({
           <div className="absolute -inset-0.5 bg-gradient-to-r from-white/10 to-transparent rounded-2xl opacity-0 group-hover/img:opacity-100 transition duration-500 blur" />
           <div className="relative overflow-hidden rounded-2xl border border-white/10 p-1 bg-black">
             <div className="overflow-hidden rounded-xl">
-              {image ? (
+              {image && !hasError ? (
                 <img
                   ref={imageRef}
                   src={image}
-                  alt={title}
+                  alt={`${title} project architecture and preview`}
+                  width={1200}
+                  height={630}
                   loading="lazy"
+                  onError={() => setHasError(true)}
                   className="w-full h-64 md:h-80 object-cover rounded-lg transform transition duration-700 grayscale group-hover/img:grayscale-0 will-change-transform"
                 />
               ) : (
-                <div className="w-full h-64 md:h-80 rounded-lg bg-gradient-to-br from-white/10 via-white/5 to-transparent flex items-center justify-center">
-                  <div className="h-24 w-24 md:h-28 md:w-28 rounded-2xl border border-white/15 bg-black/30 backdrop-blur-sm flex items-center justify-center">
+                <div className="w-full h-64 md:h-80 rounded-lg bg-gradient-to-br from-white/10 via-white/5 to-transparent flex flex-col items-center justify-center p-6 text-center">
+                  <div className="h-20 w-20 md:h-24 md:w-24 rounded-2xl border border-white/15 bg-black/40 backdrop-blur-sm flex items-center justify-center mb-3">
                     <span
                       style={{ fontFamily: "stain" }}
-                      className="text-5xl md:text-6xl text-white/85 select-none"
+                      className="text-4xl md:text-5xl text-white/85 select-none"
                       aria-hidden="true"
                     >
                       {initial || "•"}
                     </span>
                   </div>
+                  <p className="text-xs uppercase tracking-widest text-white/60 font-mono">
+                    {title}
+                  </p>
                 </div>
               )}
             </div>

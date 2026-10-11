@@ -69,11 +69,8 @@ export default function Journey() {
               <br />
               not templates.
             </h2>
-            <p className="mt-6 text-sm md:text-base text-white/65 leading-relaxed max-w-prose">
-              I’m Ashish Kapoor—a creative developer who cares about the details
-              that users feel: rhythm, clarity, speed, and motion with intent.
-              My work lives at the intersection of UI polish and engineering
-              discipline.
+            <p className="mt-6 text-sm md:text-base text-white/70 leading-relaxed max-w-prose">
+              I’m Ashish Kapoor, a Full-Stack Developer and BCA student at Dronacharya PG College of Education, based in Chamba, Himachal Pradesh, India. I specialize in building scalable, production-grade web applications and backend systems using Next.js, React, TypeScript, Node.js, Go, Python, and databases like PostgreSQL and MongoDB. I focus on clean architecture underneath and fluid, intentional motion on top.
             </p>
           </div>
 

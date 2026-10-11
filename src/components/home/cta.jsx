@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, ArrowUpRight } from "lucide-react";
+import { Github, Linkedin, Instagram, Mail, ArrowUpRight } from "lucide-react";
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -64,7 +64,7 @@ export default function CTA() {
             <a
               href="mailto:kapoorashish714@gmail.com"
               className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-5 py-3 text-white hover:bg-white/10 hover:border-white/35 transition"
-              aria-label="Email Ashish"
+              aria-label="Email Ashish Kapoor"
             >
               <Mail size={16} />
               Email
@@ -73,23 +73,34 @@ export default function CTA() {
             <a
               href="https://github.com/Ashishkapoor1469"
               target="_blank"
-              rel="noreferrer"
+              rel="me noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-5 py-3 text-white hover:bg-white/10 hover:border-white/35 transition"
-              aria-label="View GitHub"
+              aria-label="Ashish Kapoor on GitHub"
             >
               <Github size={16} />
               GitHub
               <ArrowUpRight size={16} className="opacity-70" />
             </a>
             <a
-              href="https://www.linkedin.com/in/ashishkapoor4169/"
+              href="https://www.linkedin.com/in/ashishkapoor-dev"
               target="_blank"
-              rel="noreferrer"
+              rel="me noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-5 py-3 text-white hover:bg-white/10 hover:border-white/35 transition"
-              aria-label="View LinkedIn"
+              aria-label="Ashish Kapoor on LinkedIn"
             >
               <Linkedin size={16} />
               LinkedIn
+              <ArrowUpRight size={16} className="opacity-70" />
+            </a>
+            <a
+              href="https://www.instagram.com/ashish_kapoor_1"
+              target="_blank"
+              rel="me noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-5 py-3 text-white hover:bg-white/10 hover:border-white/35 transition"
+              aria-label="Ashish Kapoor on Instagram"
+            >
+              <Instagram size={16} />
+              Instagram
               <ArrowUpRight size={16} className="opacity-70" />
             </a>
           </div>
