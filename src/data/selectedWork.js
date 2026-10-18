@@ -52,7 +52,7 @@ export const selectedWork = [
     eyebrow: "Safety Intelligence • AI Surveillance",
     title: "EarlyEcho",
     oneLiner: "Continuous defect surveillance platform predicting product safety hazards weeks before official recalls.",
-    role: "Full-Stack Engineer",
+    role: "Software Engineer",
     year: "2026",
     image: "/projects/recallradar.webp",
     problem:
@@ -76,7 +76,7 @@ export const selectedWork = [
     eyebrow: "Academic Management • Early Warning System",
     title: "EduGuard",
     oneLiner: "AI-assisted student risk management and mentorship platform with transparent deterministic scoring.",
-    role: "Full-Stack Developer",
+    role: "Software Engineer",
     year: "2026",
     image: "/projects/eduguard.webp",
     problem:
@@ -100,7 +100,7 @@ export const selectedWork = [
     eyebrow: "Product • Full-stack Social App",
     title: "Zitter",
     oneLiner: "Full-stack social app, live at minitwitter-psi.vercel.app.",
-    role: "Full-stack developer",
+    role: "Software Engineer",
     year: "2025",
     image: "/assets/z.svg",
     problem:

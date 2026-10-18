@@ -70,7 +70,7 @@ export default function Footer() {
           <div className="footer-item">
             <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">Ashish Kapoor</h3>
             <p className="text-sm md:text-base text-white/60 leading-relaxed">
-              Creative developer building premium UI with motion that earns its
+              Software engineer building premium UI with motion that earns its
               place. Clean architecture underneath, crisp interaction on top.
             </p>
           </div>

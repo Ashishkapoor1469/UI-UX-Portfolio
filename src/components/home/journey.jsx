@@ -17,7 +17,7 @@ const items = [
   },
   {
     year: "2025",
-    title: "Full-stack product thinking",
+    title: "Software engineering & systems",
     body: "Shipped end-to-end apps with secure auth, clean APIs, and UI built for real users.",
   },
 ];
@@ -70,7 +70,7 @@ export default function Journey() {
               not templates.
             </h2>
             <p className="mt-6 text-sm md:text-base text-white/70 leading-relaxed max-w-prose">
-              I’m Ashish Kapoor, a Full-Stack Developer and BCA student at Dronacharya PG College of Education, based in Chamba, Himachal Pradesh, India. I specialize in building scalable, production-grade web applications and backend systems using Next.js, React, TypeScript, Node.js, Go, Python, and databases like PostgreSQL and MongoDB. I focus on clean architecture underneath and fluid, intentional motion on top.
+              I’m Ashish Kapoor, a Software Engineer and BCA student at Dronacharya PG College of Education, based in Chamba, Himachal Pradesh, India. I specialize in building scalable, production-grade web applications and backend systems using Next.js, React, TypeScript, Node.js, Go, Python, and databases like PostgreSQL and MongoDB. I focus on clean architecture underneath and fluid, intentional motion on top.
             </p>
           </div>
 

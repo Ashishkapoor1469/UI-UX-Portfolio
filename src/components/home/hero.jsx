@@ -86,7 +86,7 @@ export default function Hero() {
               <span className="block">Kapoor</span>
             </span>
             <span className="block text-xs sm:text-sm md:text-base font-mono uppercase tracking-[0.3em] text-white/70 mt-3 sm:mt-4 font-normal">
-              Full-Stack Developer
+              Software Engineer
             </span>
           </h1>
         </div>
@@ -95,10 +95,10 @@ export default function Hero() {
         <div className="flex lg:flex-row justify-end items-end flex-col-reverse gap-8 text-white mb-10 sm:mb-12">
           <div className="lg:block text-right max-w-sm">
             <p className="text-[10px] uppercase tracking-[0.28em] text-white text-center sm:text-end mb-4 font-mono">
-              Full-Stack Developer • Chamba, India
+              Software Engineer • Chamba, India
             </p>
             <p className="text-xs md:text-sm text-white font-light text-center sm:text-end leading-relaxed">
-              Ashish Kapoor is a Full-Stack Developer and BCA student based in Chamba, Himachal Pradesh, crafting modern digital experiences with Next.js, React, Node.js, and Go.
+              Ashish Kapoor is a Software Engineer and BCA student based in Chamba, Himachal Pradesh, crafting modern digital experiences with Next.js, React, Node.js, and Go.
             </p>
             <div className="mt-6 flex items-center justify-center sm:justify-end gap-3">
               <a
