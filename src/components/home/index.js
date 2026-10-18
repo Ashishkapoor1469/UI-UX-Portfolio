@@ -1,4 +1,3 @@
-export {default as Header} from './header';
 export {default as Footer} from './footer';
 export {default as Hero} from './hero';
 export {default as WorkGrid} from './workgrid';
@@ -8,3 +7,4 @@ export {default as Projects} from './projects';
 export {default as Journey} from './journey';
 export {default as Proof} from './proof';
 export {default as CTA} from './cta';
+export {default as FlexCarousel} from './FlexCarouselSection';

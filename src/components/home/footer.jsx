@@ -60,7 +60,7 @@ export default function Footer() {
   return (
     <footer
       ref={footerRef}
-      className="relative w-full border-t border-white/10 bg-black px-6 md:px-12 py-16 md:py-24"
+      className="content-visibility-auto relative w-full border-t border-white/10 bg-black px-6 md:px-12 py-16 md:py-24"
       role="contentinfo"
     >
       <div className="mx-auto max-w-6xl">

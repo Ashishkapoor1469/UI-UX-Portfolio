@@ -64,7 +64,10 @@ export default function Hero() {
             src="/assets/3.webp"
             className="w-full h-full object-cover mix-blend-screen opacity-70 contrast-125"
             alt="Hero background"
-            loading="lazy"
+            fetchPriority="high"
+            decoding="async"
+            width="1920"
+            height="1080"
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
@@ -95,7 +98,7 @@ export default function Hero() {
         <div className="flex lg:flex-row justify-end items-end flex-col-reverse gap-8 text-white mb-10 sm:mb-12">
           <div className="lg:block text-right max-w-sm">
             <p className="text-[10px] uppercase tracking-[0.28em] text-white text-center sm:text-end mb-4 font-mono">
-              Software Engineer • Chamba, India
+              SOFTWARE ENGINEER • CHAMBA, INDIA
             </p>
             <p className="text-xs md:text-sm text-white font-light text-center sm:text-end leading-relaxed">
               Ashish Kapoor is a Software Engineer and BCA student based in Chamba, Himachal Pradesh, crafting modern digital experiences with Next.js, React, Node.js, and Go.
@@ -106,14 +109,14 @@ export default function Hero() {
                 className="inline-flex items-center gap-2 rounded-lg border border-white/25 bg-white/5 px-4 py-2 text-[11px] uppercase tracking-widest text-white hover:bg-white/10 hover:border-white/40 transition"
                 aria-label="Jump to selected work"
               >
-                Selected work
+                SELECTED WORK
               </a>
               <a
                 href="#contact"
                 className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-transparent px-4 py-2 text-[11px] uppercase tracking-widest text-white/80 hover:text-white hover:border-white/30 transition"
                 aria-label="Jump to contact"
               >
-                Let’s talk
+                LET&apos;S TALK
               </a>
             </div>
             <p className="mt-6 font-mono text-[10px] text-white/45">© 2026</p>
@@ -124,7 +127,9 @@ export default function Hero() {
               className="w-24 h-32 object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
               src="/assets/boy.webp"
               alt="Ashish Kapoor - Profile"
-              loading="lazy"
+              decoding="async"
+              width="96"
+              height="128"
             />
           </div>
         </div>

@@ -43,7 +43,7 @@ export default function WorkGrid() {
     <section
       ref={sectionRef}
       id="selected"
-      className="py-24 md:py-32 border-t border-white/10 w-full bg-black"
+      className="content-visibility-auto py-24 md:py-32 border-t border-white/10 w-full bg-black"
       role="region"
       aria-label="Selected work overview section"
     >

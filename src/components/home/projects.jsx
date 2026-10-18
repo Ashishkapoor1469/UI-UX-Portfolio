@@ -53,13 +53,77 @@ export default function Projects() {
     };
   }, [previewProject, lenis]);
 
+  const [isHovered, setIsHovered] = useState(false);
+  const timerRef = useRef(null);
+
+  const resetTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  }, []);
+
   const handlePrev = useCallback(() => {
     setActiveIndex((prev) => (prev > 0 ? prev - 1 : total - 1));
-  }, [total]);
+    resetTimer();
+  }, [total, resetTimer]);
 
   const handleNext = useCallback(() => {
     setActiveIndex((prev) => (prev < total - 1 ? prev + 1 : 0));
-  }, [total]);
+    resetTimer();
+  }, [total, resetTimer]);
+
+  const handleJump = useCallback((idx) => {
+    setActiveIndex(idx);
+    resetTimer();
+  }, [resetTimer]);
+
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsVisible(entry.isIntersecting);
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const onVisibility = () => {
+      if (document.hidden) {
+        setIsVisible(false);
+      } else if (sectionRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect();
+        setIsVisible(rect.top < window.innerHeight && rect.bottom > 0);
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
+  }, []);
+
+  // Step 3: Auto-Rotating 3D Carousel (4.5s loop, runs ONLY when visible, pause on hover/modal open, reset on interaction, respect reduced motion)
+  useEffect(() => {
+    // Respect prefers-reduced-motion
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mediaQuery.matches) return undefined;
+
+    // Pause when offscreen, hovering the carousel, or when a project modal is open
+    if (!isVisible || isHovered || previewProject) {
+      resetTimer();
+      return undefined;
+    }
+
+    timerRef.current = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % total);
+    }, 4500);
+
+    return () => {
+      resetTimer();
+    };
+  }, [isVisible, isHovered, previewProject, total, resetTimer, activeIndex]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -114,10 +178,13 @@ export default function Projects() {
 
   return (
     <section
+      ref={sectionRef}
       id="work"
-      className="w-full bg-black text-white py-14 sm:py-18 md:py-20 px-4 sm:px-6 md:px-10 lg:px-12 relative overflow-hidden flex flex-col items-center select-none"
+      className="content-visibility-auto w-full bg-black text-white py-14 sm:py-18 md:py-20 px-4 sm:px-6 md:px-10 lg:px-12 relative overflow-hidden flex flex-col items-center select-none"
       role="region"
       aria-label="Featured projects 3D showcase"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       {/* Background Ambience */}
       <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-white/[0.025] rounded-full blur-[160px]" />
@@ -148,20 +215,20 @@ export default function Projects() {
             Interactive 3D showcase. Click any card to inspect full architecture decisions, edge constraints, and production benchmarks.
           </p>
 
-          {/* Quick Jump Pills */}
+          {/* Quick Jump Pills: active chip bg var(--white) with text #000 */}
           <div className="w-full max-w-sm mb-6">
-            <p className="text-[10px] font-mono uppercase tracking-widest text-white/40 mb-2.5">
+            <p className="text-[10px] font-mono uppercase tracking-widest text-[#8a8a85] mb-2.5">
               Jump to Project
             </p>
             <div className="flex flex-wrap gap-1.5 justify-center lg:justify-start">
               {selectedWork.map((project, idx) => (
                 <button
                   key={project.id}
-                  onClick={() => setActiveIndex(idx)}
+                  onClick={() => handleJump(idx)}
                   className={`px-3 py-1 rounded-full text-[11px] font-mono transition-all duration-200 border cursor-pointer ${
                     idx === activeIndex
-                      ? "bg-white text-black border-white font-semibold scale-105 shadow-[0_0_15px_rgba(255,255,255,0.25)]"
-                      : "bg-white/[0.03] text-white/55 border-white/10 hover:text-white hover:border-white/30"
+                      ? "bg-[#f5f5f5] text-[#000000] border-[#f5f5f5] font-semibold scale-105 shadow-[0_0_15px_rgba(255,255,255,0.25)]"
+                      : "bg-[#111111] text-[#8a8a85] border-[rgba(255,255,255,0.08)] hover:text-[#f5f5f5] hover:border-white/30"
                   }`}
                   aria-label={`Jump to project ${project.title}`}
                 >
@@ -176,38 +243,38 @@ export default function Projects() {
             <div className="flex items-center gap-2">
               <button
                 onClick={handlePrev}
-                className="p-2.5 rounded-xl border border-white/20 bg-white/5 text-white hover:bg-white/15 hover:border-white/40 transition active:scale-95 shadow-md cursor-pointer"
+                className="p-2.5 rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] text-[#8a8a85] hover:text-[#f5f5f5] hover:border-white/40 transition active:scale-95 shadow-md cursor-pointer"
                 aria-label="Previous project"
               >
                 <ChevronLeft size={18} />
               </button>
               <button
                 onClick={handleNext}
-                className="p-2.5 rounded-xl border border-white/20 bg-white/5 text-white hover:bg-white/15 hover:border-white/40 transition active:scale-95 shadow-md cursor-pointer"
+                className="p-2.5 rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] text-[#8a8a85] hover:text-[#f5f5f5] hover:border-white/40 transition active:scale-95 shadow-md cursor-pointer"
                 aria-label="Next project"
               >
                 <ChevronRight size={18} />
               </button>
             </div>
 
-            {/* Pagination Indicators */}
+            {/* Pagination Indicators: active dot var(--white), inactive dots rgba(255,255,255,0.25) */}
             <div className="flex items-center gap-1.5">
               {selectedWork.map((_, idx) => (
                 <button
                   key={idx}
-                  onClick={() => setActiveIndex(idx)}
+                  onClick={() => handleJump(idx)}
                   className={`h-1.5 transition-all duration-300 rounded-full cursor-pointer ${
                     idx === activeIndex
-                      ? "w-7 bg-white"
-                      : "w-2 bg-white/20 hover:bg-white/40"
+                      ? "w-7 bg-[#f5f5f5] shadow-[0_0_10px_rgba(255,255,255,0.6)]"
+                      : "w-2 bg-white/25 hover:bg-white/50"
                   }`}
                   aria-label={`Go to slide ${idx + 1}`}
                 />
               ))}
             </div>
 
-            {/* Counter */}
-            <span className="font-mono text-xs text-white/40 ml-1">
+            {/* Counter: var(--white) */}
+            <span className="font-mono text-xs text-[#f5f5f5] ml-1">
               {String(activeIndex + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
             </span>
           </div>
@@ -295,6 +362,7 @@ export default function Projects() {
                         width={1200}
                         height={630}
                         loading="lazy"
+                        decoding="async"
                         onError={() => handleImageError(project.id)}
                         className={`w-full h-full object-cover transition-transform duration-700 ${
                           isActive ? "scale-100 contrast-105" : "grayscale contrast-125 scale-95"

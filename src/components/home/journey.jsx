@@ -51,7 +51,7 @@ export default function Journey() {
     <section
       id="journey"
       ref={ref}
-      className="w-full bg-black text-white border-t border-white/10 py-24 md:py-32"
+      className="content-visibility-auto w-full bg-black text-white border-t border-white/10 py-24 md:py-32"
       role="region"
       aria-label="Journey section"
     >

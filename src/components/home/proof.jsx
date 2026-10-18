@@ -47,7 +47,7 @@ export default function Proof() {
   return (
     <section
       ref={ref}
-      className="w-full bg-black text-white border-t border-white/10 py-24 md:py-32"
+      className="content-visibility-auto w-full bg-black text-white border-t border-white/10 py-24 md:py-32"
       role="region"
       aria-label="Proof section"
     >

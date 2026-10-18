@@ -2,7 +2,6 @@
 
 /* Global Styles */
 html {
-  scroll-behavior: smooth;
 }
 
 body {
@@ -157,50 +156,27 @@ a:focus-visible {
 
 
 @font-face {
-  font-family: "Poppins";
-  src: url("./assets/fonts/gc-epic-pro-font/GC-EPICPRO-Demo-BF6891cc5419ab8.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Poppins";
-  src: url("./assets/fonts/gc-epic-pro-font/GC-EPICPRO-Demo-BF6891cc5419ab8.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-}
-
-
-@font-face {
-  font-family: "rocline";
-  src: url("./assets/fonts/rocline/RoclinePersonalUseOnly-Regular.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "bulgia";
-  src: url("./assets/fonts/bulgia/Bulgia.otf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-}
-@font-face {
-  font-family: "sakire";
-  src: url("./assets/fonts/sakire/Sakire.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-}
-@font-face {
   font-family: "stain";
-  src: url("./assets/fonts/stain_street/StainStreet_PERSONAL_USE_ONLY.otf") format("truetype");
+  src: url("./assets/fonts/stain_street/StainStreet.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
+  font-display: swap;
 }
-@font-face {
-  font-family: "stars";
-  src: url("./assets/fonts/when_the_stars_align/WhenTheStarsAlign_PERSONAL_USE_ONLY.otf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
+
+/* Below-the-fold content visibility optimization */
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 700px;
+}
+
+/* When liquid cursor mode is active, hide default custom cursor ring/dot */
+html.cursor-fx-liquid .default-custom-cursor {
+  display: none !important;
+}
+
+/* Liquid Gooey filter helper */
+.liquid-gooey-layer {
+  filter: url("#liquid-goo-filter");
 }
 
 
