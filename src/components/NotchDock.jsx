@@ -13,7 +13,7 @@ import { useLenis } from "lenis/react";
 
 const DESKTOP_ITEMS = [
   { id: "selected", label: "Work", target: "#selected", icon: Briefcase },
-  { id: "journey", label: "About", target: "#journey", icon: User },
+  { id: "home", label: "Home", target: "#home", icon: User },
   { id: "craft", label: "Craft", target: "#craft", icon: Sparkles },
   { id: "work", label: "Projects", target: "#work", icon: FolderGit2 },
   { id: "journey-timeline", label: "Journey", target: "#journey", icon: Compass },
